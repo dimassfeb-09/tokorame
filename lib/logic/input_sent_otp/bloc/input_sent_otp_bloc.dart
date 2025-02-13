@@ -11,7 +11,6 @@ class InputSentOtpBloc extends Bloc<InputSentOtpEvent, InputSentOtpState> {
     on<OnOtpFieldChangedEvent>((event, emit) {
       otpInputs[event.index] = event.value;
       bool isAllFieldsFilled = otpInputs.every((input) => input.isNotEmpty);
-      print(isAllFieldsFilled);
       emit(InputSentOtpState(isButtonActive: isAllFieldsFilled));
     });
   }

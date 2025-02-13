@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tokorame_dimasfebriyanto/logic/whatsapp_otw/bloc/whatsapp_otp_bloc.dart';
+import 'package:tokorame_dimasfebriyanto/logic/whatsapp_otp/bloc/whatsapp_otp_bloc.dart';
+import 'package:tokorame_dimasfebriyanto/models/confirm_data_account_model.dart';
 import 'package:tokorame_dimasfebriyanto/models/splash_screen__content_model.dart';
 
+import '../logic/confirm_data_account/bloc/confirm_data_account_bloc.dart';
 import 'whatsapp_otp_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -130,12 +132,30 @@ class _SplashScreenState extends State<SplashScreen> {
                           if (this.currentIndex < 2) {
                             this.currentIndex++; // Menggunakan increment yang benar
                           } else {
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => BlocProvider(
-                                create: (context) => WhatsappOtpBloc(),
-                                child: WhatsappOtpScreen(),
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => MultiBlocProvider(
+                                  providers: [
+                                    BlocProvider(
+                                      create: (context) =>
+                                          ConfirmDataAccountBloc(
+                                        confirmDataAccount: ConfirmDataAccount(
+                                          agen: '',
+                                          noWhatsapp: '',
+                                          level: '',
+                                          storeName: '',
+                                          storeDomain: '',
+                                        ),
+                                      ),
+                                    ),
+                                    BlocProvider(
+                                      create: (context) => WhatsappOtpBloc(),
+                                    ),
+                                  ],
+                                  child: WhatsappOtpScreen(),
+                                ),
                               ),
-                            ));
+                            );
                           }
                         });
                       },

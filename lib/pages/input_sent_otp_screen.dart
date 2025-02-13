@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tokorame_dimasfebriyanto/pages/registration_screen.dart';
+import 'package:tokorame_dimasfebriyanto/logic/confirm_data_account/bloc/confirm_data_account_bloc.dart';
+import 'package:tokorame_dimasfebriyanto/logic/whatsapp_otp/bloc/whatsapp_otp_bloc.dart';
+import 'package:tokorame_dimasfebriyanto/models/confirm_data_account_model.dart';
+import 'package:tokorame_dimasfebriyanto/pages/form_registration_screen.dart';
 
 import '../logic/input_sent_otp/bloc/input_sent_otp_bloc.dart';
 import '../logic/registration/bloc/registration_bloc.dart';
@@ -105,7 +108,7 @@ class InputSentOtpScreen extends StatelessWidget {
                           Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => BlocProvider(
                               create: (context) => RegistrationBloc(),
-                              child: RegistrationScreen(),
+                              child: FormRegistrationScreen(),
                             ),
                           ));
                         }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tokorame_dimasfebriyanto/logic/confirm_data_account/bloc/confirm_data_account_bloc.dart';
 import 'package:tokorame_dimasfebriyanto/logic/input_sent_otp/bloc/input_sent_otp_bloc.dart';
-import 'package:tokorame_dimasfebriyanto/logic/whatsapp_otw/bloc/whatsapp_otp_bloc.dart';
+import 'package:tokorame_dimasfebriyanto/logic/whatsapp_otp/bloc/whatsapp_otp_bloc.dart';
 import 'package:tokorame_dimasfebriyanto/pages/input_sent_otp_screen.dart';
 import 'package:tokorame_dimasfebriyanto/widgets/button_custom.dart';
 
@@ -11,6 +12,9 @@ class WhatsappOtpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextEditingController _noWhatsappController = TextEditingController();
+
+    ConfirmDataAccountBloc _confirmDataAccountBloc =
+        context.read<ConfirmDataAccountBloc>();
 
     return Scaffold(
       appBar: AppBar(
@@ -75,8 +79,10 @@ class WhatsappOtpScreen extends StatelessWidget {
                       controller: _noWhatsappController,
                       keyboardType: TextInputType.phone,
                       style: const TextStyle(fontSize: 14),
-                      onChanged: (value) => context.read<WhatsappOtpBloc>()
-                        ..add(OnChangeTextFieldNoWhatsappEvent(number: value)),
+                      onChanged: (value) {
+                        context.read<WhatsappOtpBloc>().add(
+                            OnChangeTextFieldNoWhatsappEvent(number: value));
+                      },
                       decoration: const InputDecoration(
                         hintStyle: TextStyle(fontSize: 14),
                         hintText: 'No Whatsapp',
@@ -132,12 +138,32 @@ class WhatsappOtpScreen extends StatelessWidget {
                   isActive: isNotBlank && isValid,
                   onTap: () {
                     if (isNotBlank) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => BlocProvider(
-                          create: (context) => InputSentOtpBloc(),
-                          child: const InputSentOtpScreen(),
+                      _confirmDataAccountBloc.add(
+                        UpdateConfirmDataEvent(
+                          confirmDataAccount: _confirmDataAccountBloc
+                              .state.confirmDataAccount
+                              .copyWith(
+                            noWhatsapp: _noWhatsappController.text,
+                          ),
                         ),
-                      ));
+                      );
+
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => MultiBlocProvider(
+                            providers: [
+                              BlocProvider.value(
+                                value:
+                                    _confirmDataAccountBloc, // Menggunakan instance yang ada
+                              ),
+                              BlocProvider(
+                                create: (context) => InputSentOtpBloc(),
+                              ),
+                            ],
+                            child: InputSentOtpScreen(),
+                          ),
+                        ),
+                      );
                     }
                   },
                 );

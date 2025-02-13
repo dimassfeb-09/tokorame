@@ -62,7 +62,7 @@ class _TextfieldTypePasswordCustomState
                       image: AssetImage("assets/icons/lock.png"),
                     ),
                   ),
-                  border: const UnderlineInputBorder(),
+                  border: InputBorder.none,
                 ),
               ),
             ),
@@ -78,6 +78,7 @@ class _TextfieldTypePasswordCustomState
             ),
           ],
         ),
+        Divider(height: 0),
         if (widget.hintUnderline != null)
           Align(
             alignment: widget.hintUnderlinePosition!,

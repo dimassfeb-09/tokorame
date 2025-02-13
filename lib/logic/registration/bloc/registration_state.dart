@@ -16,3 +16,9 @@ class OnChangeConfirmPasswordState extends RegistrationState {
 
   OnChangeConfirmPasswordState({required this.password});
 }
+
+class OnSelectOptionHowDoYouKnowState extends RegistrationState {
+  final Option option;
+
+  OnSelectOptionHowDoYouKnowState({required this.option});
+}

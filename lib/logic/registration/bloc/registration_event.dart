@@ -14,3 +14,9 @@ class OnChangeConfirmPasswordEvent extends RegistrationEvent {
 
   OnChangeConfirmPasswordEvent({required this.password});
 }
+
+class OnSelectOptionHowDoYouKnowEvent extends RegistrationEvent {
+  final Option option;
+
+  OnSelectOptionHowDoYouKnowEvent({required this.option});
+}

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class TextfieldTypeTextCustom extends StatelessWidget {
   final TextEditingController? controller;
   final String hintText;
-  final String iconPath;
+  final Widget prefixIcon;
+  final Widget? suffixIcon;
   final String? hintUnderline;
 
   final Function(String value)? onChanged;
@@ -15,7 +16,8 @@ class TextfieldTypeTextCustom extends StatelessWidget {
   const TextfieldTypeTextCustom({
     super.key,
     required this.hintText,
-    required this.iconPath,
+    required this.prefixIcon,
+    this.suffixIcon,
     this.onChanged,
     this.controller,
     this.hintUnderline,
@@ -34,14 +36,18 @@ class TextfieldTypeTextCustom extends StatelessWidget {
           decoration: InputDecoration(
             hintText: hintText,
             prefixIcon: Padding(
-              padding: const EdgeInsets.all(12.0), // Sesuaikan padding
-              child: Image(
-                image: AssetImage(iconPath),
-              ),
+              padding: const EdgeInsets.all(12.0),
+              child: prefixIcon,
             ),
-            border: UnderlineInputBorder(), // Tambahkan jika ingin ada border
+            suffixIcon: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: suffixIcon,
+            ),
+            border: InputBorder.none,
+            contentPadding: const EdgeInsets.symmetric(vertical: 12.0),
           ),
         ),
+        Divider(height: 0),
         if (hintUnderline != null)
           Align(
             alignment: hintUnderlinePosition!,

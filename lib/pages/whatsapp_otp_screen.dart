@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tokorame_dimasfebriyanto/logic/confirm_data_account/bloc/confirm_data_account_bloc.dart';
-import 'package:tokorame_dimasfebriyanto/logic/input_sent_otp/bloc/input_sent_otp_bloc.dart';
 import 'package:tokorame_dimasfebriyanto/logic/whatsapp_otp/bloc/whatsapp_otp_bloc.dart';
-import 'package:tokorame_dimasfebriyanto/pages/input_sent_otp_screen.dart';
 import 'package:tokorame_dimasfebriyanto/widgets/button_custom.dart';
 
 class WhatsappOtpScreen extends StatelessWidget {
@@ -147,23 +145,7 @@ class WhatsappOtpScreen extends StatelessWidget {
                           ),
                         ),
                       );
-
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => MultiBlocProvider(
-                            providers: [
-                              BlocProvider.value(
-                                value:
-                                    _confirmDataAccountBloc, // Menggunakan instance yang ada
-                              ),
-                              BlocProvider(
-                                create: (context) => InputSentOtpBloc(),
-                              ),
-                            ],
-                            child: InputSentOtpScreen(),
-                          ),
-                        ),
-                      );
+                      Navigator.of(context).pushNamed('/input-sent-otp');
                     }
                   },
                 );

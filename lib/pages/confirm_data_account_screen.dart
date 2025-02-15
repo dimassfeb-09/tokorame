@@ -12,6 +12,11 @@ class ConfirmDataAccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ConfirmDataAccountBloc confirmDataAccountBloc =
+        context.read<ConfirmDataAccountBloc>();
+
+    print(confirmDataAccountBloc.state.confirmDataAccount.toJson());
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -53,8 +58,10 @@ class ConfirmDataAccountScreen extends StatelessWidget {
             const SizedBox(height: 15),
             BlocBuilder<ConfirmDataAccountBloc, ConfirmDataAccountState>(
               builder: (context, state) {
-                final account =
-                    context.watch<ConfirmDataAccountBloc>().confirmDataAccount;
+                final account = context
+                    .watch<ConfirmDataAccountBloc>()
+                    .state
+                    .confirmDataAccount;
                 return CardConfirmDataAccount(confirmDataAccount: account);
               },
             ),

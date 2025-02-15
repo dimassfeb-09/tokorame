@@ -7,9 +7,9 @@ part 'confirm_data_account_state.dart';
 
 class ConfirmDataAccountBloc
     extends Bloc<ConfirmDataAccountEvent, ConfirmDataAccountState> {
-  final ConfirmDataAccount confirmDataAccount;
+  final ConfirmDataAccount? confirmDataAccount;
 
-  ConfirmDataAccountBloc({required this.confirmDataAccount})
+  ConfirmDataAccountBloc({this.confirmDataAccount})
       : super(ConfirmDataAccountInitial()) {
     on<CheckboxOnPressedEvent>((event, emit) {
       emit(CheckboxOnPressedState(

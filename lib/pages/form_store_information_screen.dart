@@ -19,6 +19,12 @@ class FormStoreInformationScreen extends StatelessWidget {
       "Hanya bisa diganti sekali"
     ];
 
+    TextEditingController _storeName = TextEditingController();
+    TextEditingController _storeDomain = TextEditingController();
+
+    ConfirmDataAccountBloc confirmDataAccountBloc =
+        context.read<ConfirmDataAccountBloc>();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
@@ -63,6 +69,7 @@ class FormStoreInformationScreen extends StatelessWidget {
               children: [
                 SizedBox(height: 28),
                 TextfieldTypeTextCustom(
+                  controller: _storeName,
                   hintText: 'Nama Toko',
                   onChanged: (value) {},
                   prefixIcon: Image(
@@ -71,6 +78,7 @@ class FormStoreInformationScreen extends StatelessWidget {
                 ),
                 SizedBox(height: 28),
                 TextfieldTypeTextCustom(
+                  controller: _storeDomain,
                   hintText: 'Domain Toko',
                   onChanged: (value) {},
                   prefixIcon: Image(
@@ -112,19 +120,20 @@ class FormStoreInformationScreen extends StatelessWidget {
               name: "Selanjutnya",
               isActive: true,
               onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => BlocProvider(
-                    create: (context) => ConfirmDataAccountBloc(
-                      confirmDataAccount: ConfirmDataAccount(
-                          agen: 'agen',
-                          noWhatsapp: 'noWhatsapp',
-                          level: 'level',
-                          storeName: 'storeName',
-                          storeDomain: 'storeDomain'),
+                confirmDataAccountBloc.add(
+                  UpdateConfirmDataEvent(
+                    confirmDataAccount: confirmDataAccountBloc
+                        .state.confirmDataAccount
+                        .copyWith(
+                      storeDomain: _storeDomain.text,
+                      storeName: _storeName.text,
+                      agen: 'REGULAR',
+                      level: 'NEW',
                     ),
-                    child: ConfirmDataAccountScreen(),
                   ),
-                ));
+                );
+
+                Navigator.of(context).pushNamed('/confirm-data-account');
               },
             ),
           ],

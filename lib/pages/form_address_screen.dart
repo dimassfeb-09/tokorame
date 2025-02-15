@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tokorame_dimasfebriyanto/logic/confirm_data_account/bloc/confirm_data_account_bloc.dart';
+import 'package:tokorame_dimasfebriyanto/logic/whatsapp_otp/bloc/whatsapp_otp_bloc.dart';
+import 'package:tokorame_dimasfebriyanto/models/confirm_data_account_model.dart';
 import 'package:tokorame_dimasfebriyanto/pages/form_store_information_screen.dart';
 import 'package:tokorame_dimasfebriyanto/widgets/option_select_custom.dart';
 import 'package:tokorame_dimasfebriyanto/widgets/textfield_type_password_custom.dart';
@@ -13,8 +16,12 @@ class FormAddressScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ConfirmDataAccountBloc confirmDataAccountBloc =
+        context.read<ConfirmDataAccountBloc>();
+
     TextEditingController _nameController = TextEditingController();
-    TextEditingController _emailController = TextEditingController();
+    TextEditingController _whatsappNoController = TextEditingController(
+        text: confirmDataAccountBloc.state.confirmDataAccount.noWhatsapp);
     TextEditingController _passwordController = TextEditingController();
     TextEditingController _confirmPasswordController = TextEditingController();
     TextEditingController _referralCodeController = TextEditingController();
@@ -67,7 +74,7 @@ class FormAddressScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("Informasi Penerima",
+                      Text("Informasi Pengirim",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
                       Text("Wajib terisi",
@@ -78,6 +85,7 @@ class FormAddressScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 28),
                   TextfieldTypeTextCustom(
+                    controller: _nameController,
                     hintText: 'Nama Lengkap',
                     onChanged: (value) {},
                     prefixIcon: Image(
@@ -85,6 +93,7 @@ class FormAddressScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 28),
                   TextfieldTypeTextCustom(
+                    controller: _whatsappNoController,
                     hintText: 'Nomor Whatsapp',
                     prefixIcon: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -107,7 +116,7 @@ class FormAddressScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("Alamat Penerima",
+                      Text("Alamat Pengirim",
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
                       Text("Wajib terisi",
@@ -172,9 +181,7 @@ class FormAddressScreen extends StatelessWidget {
                 name: "Selanjutnya",
                 isActive: true,
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => FormStoreInformationScreen(),
-                  ));
+                  Navigator.of(context).pushNamed('/form-store-information');
                 },
               ),
             ],

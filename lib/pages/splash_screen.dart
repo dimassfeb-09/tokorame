@@ -132,30 +132,7 @@ class _SplashScreenState extends State<SplashScreen> {
                           if (this.currentIndex < 2) {
                             this.currentIndex++; // Menggunakan increment yang benar
                           } else {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => MultiBlocProvider(
-                                  providers: [
-                                    BlocProvider(
-                                      create: (context) =>
-                                          ConfirmDataAccountBloc(
-                                        confirmDataAccount: ConfirmDataAccount(
-                                          agen: '',
-                                          noWhatsapp: '',
-                                          level: '',
-                                          storeName: '',
-                                          storeDomain: '',
-                                        ),
-                                      ),
-                                    ),
-                                    BlocProvider(
-                                      create: (context) => WhatsappOtpBloc(),
-                                    ),
-                                  ],
-                                  child: WhatsappOtpScreen(),
-                                ),
-                              ),
-                            );
+                            Navigator.of(context).pushNamed('/whatsapp-otp');
                           }
                         });
                       },

@@ -32,7 +32,7 @@ class CardConfirmDataAccount extends StatelessWidget {
                 ),
               ),
               Text(
-                confirmDataAccount.agen,
+                confirmDataAccount.agen!,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
@@ -51,7 +51,7 @@ class CardConfirmDataAccount extends StatelessWidget {
                 ),
               ),
               Text(
-                confirmDataAccount.noWhatsapp,
+                confirmDataAccount.noWhatsapp!,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
@@ -70,7 +70,7 @@ class CardConfirmDataAccount extends StatelessWidget {
                 ),
               ),
               Text(
-                confirmDataAccount.level.toUpperCase(),
+                confirmDataAccount.level!.toUpperCase(),
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
@@ -89,7 +89,7 @@ class CardConfirmDataAccount extends StatelessWidget {
                 ),
               ),
               Text(
-                confirmDataAccount.storeDomain,
+                confirmDataAccount.storeDomain!,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),
@@ -102,7 +102,7 @@ class CardConfirmDataAccount extends StatelessWidget {
             children: [
               Text("Domain Toko"),
               Text(
-                confirmDataAccount.storeDomain,
+                confirmDataAccount.storeDomain!,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                 ),

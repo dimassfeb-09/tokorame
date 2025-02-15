@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tokorame_dimasfebriyanto/pages/form_address_screen.dart';
+import 'package:tokorame_dimasfebriyanto/logic/confirm_data_account/bloc/confirm_data_account_bloc.dart';
 import 'package:tokorame_dimasfebriyanto/widgets/option_select_custom.dart';
 import 'package:tokorame_dimasfebriyanto/widgets/textfield_type_password_custom.dart';
 import 'package:tokorame_dimasfebriyanto/widgets/textfield_type_text_custom.dart';
@@ -19,6 +19,9 @@ class FormRegistrationScreen extends StatelessWidget {
     TextEditingController _confirmPasswordController = TextEditingController();
     TextEditingController _referralCodeController = TextEditingController();
     TextEditingController _howDoYouNowController = TextEditingController();
+
+    ConfirmDataAccountBloc confirmDataAccountBloc =
+        context.read<ConfirmDataAccountBloc>();
 
     return Scaffold(
       appBar: AppBar(
@@ -63,6 +66,7 @@ class FormRegistrationScreen extends StatelessWidget {
               Column(
                 children: [
                   TextfieldTypeTextCustom(
+                    controller: _nameController,
                     hintText: 'Nama',
                     prefixIcon: Image(
                         image: AssetImage("assets/icons/user-square.png")),
@@ -70,6 +74,7 @@ class FormRegistrationScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 28),
                   TextfieldTypeTextCustom(
+                    controller: _emailController,
                     hintText: 'Email',
                     prefixIcon:
                         Image(image: AssetImage("assets/icons/sms.png")),
@@ -77,6 +82,7 @@ class FormRegistrationScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 28),
                   TextfieldTypePasswordCustom(
+                    controller: _passwordController,
                     hintText: 'Password',
                   ),
                   SizedBox(height: 28),
@@ -110,6 +116,7 @@ class FormRegistrationScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 28),
                   TextfieldTypeTextCustom(
+                    controller: _referralCodeController,
                     prefixIcon: Image(
                         image: AssetImage("assets/icons/user-square.png")),
                     onChanged: (value) {},
@@ -160,9 +167,7 @@ class FormRegistrationScreen extends StatelessWidget {
                 name: "Selanjutnya",
                 isActive: true,
                 onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => FormAddressScreen(),
-                  ));
+                  Navigator.of(context).pushNamed('/form-address-store');
                 },
               ),
             ],
